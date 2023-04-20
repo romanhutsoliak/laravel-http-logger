@@ -1,6 +1,7 @@
 {
     "name": "hutsoliak/laravel-http-logger",
     "description": "Laravel http requests logger",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Hutsoliak\\HttpLogger\\": "src/"
