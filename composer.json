@@ -1,0 +1,27 @@
+{
+    "name": "hutsoliak/laravel-http-logger",
+    "description": "Laravel http requests logger",
+    "autoload": {
+        "psr-4": {
+            "Hutsoliak\\HttpLogger\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Roman Hutsoliak",
+            "email": "roman.hutsoliak@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^8.0 | ^9.0 | ^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hutsoliak\\HttpLogger\\Providers\\HttpLoggerServiceProvider"
+            ]
+        }
+    }
+}
