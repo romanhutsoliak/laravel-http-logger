@@ -2,6 +2,7 @@
 
 namespace Hutsoliak\HttpLogger\Listeners;
 
+use Hutsoliak\HttpLogger\Helpers\LoggerHelper;
 use Hutsoliak\HttpLogger\Managers\LoggerHttpManager;
 
 class HttpLogsRequest
@@ -11,12 +12,12 @@ class HttpLogsRequest
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param object $event
      * @return void
      */
     public function handle($event)
     {
-        if (! config('app.http_logger_enabled')) {
+        if (!LoggerHelper::isServiceEnabled()) {
             return;
         }
 
@@ -36,6 +37,6 @@ class HttpLogsRequest
 
     public static function getTimeKey(string $url, $requestData): string
     {
-        return 't_'.md5($url.print_r($requestData, true));
+        return 't_' . md5($url . print_r($requestData, true));
     }
 }

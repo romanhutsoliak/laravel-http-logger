@@ -4,6 +4,7 @@ namespace Hutsoliak\HttpLogger\Middleware;
 
 use Carbon\Carbon;
 use Closure;
+use Hutsoliak\HttpLogger\Helpers\LoggerHelper;
 use Hutsoliak\HttpLogger\Models\LogsHttp;
 use Hutsoliak\HttpLogger\Storage\ListenerResponseStorage;
 use Illuminate\Http\Request;
@@ -19,12 +20,14 @@ class HttpLogger
 
     public function __construct(
         protected ListenerResponseStorage $storage,
-    ){}
+    )
+    {
+    }
 
     public function handle(Request $request, Closure $next)
     {
         // php processing time
-        if (config('services.http_logger.enabled')) {
+        if (LoggerHelper::isServiceEnabled()) {
             static::$httpLoggerTime[$this->getKey()] = microtime(true);
         }
 
@@ -33,7 +36,7 @@ class HttpLogger
 
     public function terminate(Request $request, Response $response)
     {
-        if (!config('services.http_logger.enabled')) {
+        if (!LoggerHelper::isServiceEnabled()) {
             return;
         }
 

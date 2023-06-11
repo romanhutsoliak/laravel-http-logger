@@ -3,6 +3,7 @@
 namespace Hutsoliak\HttpLogger\Listeners;
 
 use Carbon\Carbon;
+use Hutsoliak\HttpLogger\Helpers\LoggerHelper;
 use Hutsoliak\HttpLogger\Managers\LoggerHttpManager;
 use Hutsoliak\HttpLogger\Storage\ListenerResponseStorage;
 
@@ -24,7 +25,7 @@ class HttpLogsResponse
      */
     public function handle($event)
     {
-        if (! config('services.http_logger.enabled')) {
+        if (!LoggerHelper::isServiceEnabled()) {
             return;
         }
 

@@ -2,9 +2,9 @@
 
 namespace Hutsoliak\HttpLogger\Providers;
 
+use Hutsoliak\HttpLogger\Middleware\HttpLogger;
 use Hutsoliak\HttpLogger\Storage\ListenerResponseStorage;
 use Illuminate\Contracts\Http\Kernel;
-use Hutsoliak\HttpLogger\Middleware\HttpLogger;
 use Illuminate\Support\ServiceProvider;
 
 class HttpLoggerServiceProvider extends ServiceProvider
@@ -27,7 +27,7 @@ class HttpLoggerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $kernel = resolve(Kernel::class);
         $kernel->pushMiddleware(HttpLogger::class);
