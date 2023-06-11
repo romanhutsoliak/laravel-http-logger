@@ -35,7 +35,10 @@ php artisan migrate
 
 ### Add variable to config/services.php config
 
-The package works only if you enable it in config.
+The package enabled by default for local environment ``` app()->environment('local') ```.
+
+The package can be easily enabled/disabled in config.
+
 You can exclude some urls you don't want to log
 
 ```
