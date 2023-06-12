@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class LogsHttp extends Model
 {
-    protected string $table = 'logs_http';
+    protected $table = 'logs_http';
 
-    protected array $fillable = [
+    protected $fillable = [
         'status',
         'user_id',
         'method',
@@ -32,7 +32,7 @@ class LogsHttp extends Model
         });
     }
 
-    protected array $casts = [
+    protected $casts = [
         'request' => 'json',
         'response' => 'json',
         'headers' => 'json',
