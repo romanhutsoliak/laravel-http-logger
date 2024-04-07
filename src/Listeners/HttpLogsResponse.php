@@ -4,7 +4,6 @@ namespace Hutsoliak\HttpLogger\Listeners;
 
 use Carbon\Carbon;
 use Hutsoliak\HttpLogger\Helpers\LoggerHelper;
-use Hutsoliak\HttpLogger\Managers\LoggerHttpManager;
 use Hutsoliak\HttpLogger\Storage\ListenerResponseStorage;
 
 class HttpLogsResponse
@@ -15,7 +14,8 @@ class HttpLogsResponse
 
     public function __construct(
         protected ListenerResponseStorage $storage,
-    ){}
+    ) {
+    }
 
     /**
      * Handle the event.
@@ -25,7 +25,7 @@ class HttpLogsResponse
      */
     public function handle($event)
     {
-        if (!LoggerHelper::isServiceEnabled()) {
+        if (! LoggerHelper::isServiceEnabled()) {
             return;
         }
 
@@ -36,7 +36,7 @@ class HttpLogsResponse
 
         $ignoreUrls = static::$ignoreUrls;
         $configIgnoreUrls = config('services.http_logger.ignoreUrls');
-        if (!empty($configIgnoreUrls) && is_array($configIgnoreUrls)) {
+        if (! empty($configIgnoreUrls) && is_array($configIgnoreUrls)) {
             $ignoreUrls = array_merge($ignoreUrls, $configIgnoreUrls);
         }
         foreach ($ignoreUrls as $ignoreUrl) {
@@ -66,7 +66,7 @@ class HttpLogsResponse
             'request' => $event->request->data() ?: null,
             'response' => $event->response->json() ?: $event->response->body() ?: null,
             'headers' => $headers,
-            'time' => (int)($time * 1000),
+            'time' => (int) ($time * 1000),
             'created_at' => Carbon::now()->subSeconds($time)->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);

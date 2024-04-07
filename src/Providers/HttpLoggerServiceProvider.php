@@ -27,7 +27,7 @@ class HttpLoggerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $kernel = resolve(Kernel::class);
         $kernel->pushMiddleware(HttpLogger::class);

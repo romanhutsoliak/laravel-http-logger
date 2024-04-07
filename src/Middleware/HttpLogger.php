@@ -20,8 +20,7 @@ class HttpLogger
 
     public function __construct(
         protected ListenerResponseStorage $storage,
-    )
-    {
+    ) {
     }
 
     public function handle(Request $request, Closure $next)
@@ -36,7 +35,7 @@ class HttpLogger
 
     public function terminate(Request $request, Response $response)
     {
-        if (!LoggerHelper::isServiceEnabled()) {
+        if (! LoggerHelper::isServiceEnabled()) {
             return;
         }
 
@@ -45,9 +44,9 @@ class HttpLogger
             return;
         }
 
-        if (!empty(static::$ignoreUrls)) {
+        if (! empty(static::$ignoreUrls)) {
             foreach (static::$ignoreUrls as $ignoreUrl) {
-                if (preg_match('#' . $ignoreUrl . '#', $request->getPathInfo())) {
+                if (preg_match('#'.$ignoreUrl.'#', $request->getPathInfo())) {
                     return;
                 }
             }
@@ -79,12 +78,12 @@ class HttpLogger
         $logHttp = LogsHttp::create([
             'status' => $response->status(),
             'method' => $method,
-            'url' => $request->getPathInfo() . ($request->getQueryString() ? '?' . $request->getQueryString() : ''),
+            'url' => $request->getPathInfo().($request->getQueryString() ? '?'.$request->getQueryString() : ''),
             'request' => $request->all() ?: null,
             'response' => $responseContent,
             'headers' => $headers,
             'cookies' => $request->cookie() ?: null,
-            'time' => (int)($time * 1000),
+            'time' => (int) ($time * 1000),
             'created_at' => Carbon::now()->subSeconds($time)->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -99,6 +98,6 @@ class HttpLogger
 
     private function getKey()
     {
-        return 't_' . md5(request()->getPathInfo() . print_r(request()->all(), true));
+        return 't_'.md5(request()->getPathInfo().print_r(request()->all(), true));
     }
 }
